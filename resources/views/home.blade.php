@@ -2,7 +2,7 @@
 
 @section('css')
 
-<link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('/public/css/custom.css') }}">
 
 @endsection
 
@@ -12,7 +12,7 @@
 
   {{-- admin section --}}
   @role('admin')
-    <div class="row">
+    <div class="row col-md-12">
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
@@ -85,7 +85,7 @@
     {{-- Student section --}}
     @role('student')
 
-      <div class="row">
+      <div class="row col-md-12">
         <div class="col-md-8">
           <div class="row">
             <div class="col-sm-6 col-12">
@@ -94,10 +94,10 @@
 
                 <div class="info-box-content">
                   <span class="info-box-text">Industries</span>
-                  <span class="info-box-number">{{ count($industry) }}</span>
+                  <span class="info-box-number">{{ count($placements) }}</span>
 
                   <div class="progress">
-                    <div class="progress-bar" style="width: {{ $vac }}%"></div>
+                    <div class="progress-bar" style="width: {{ $percentage }}%"></div>
                   </div>
                   <span class="progress-description">
                    {{$vac}} Vacancy available
@@ -109,7 +109,7 @@
             </div>
             <!-- /.col -->
             <div class="col-sm-6 col-12">
-              <div class="info-box" style="background-color: #0076cc; color: white;">
+              <div class="info-box bg-success" {{-- style="background-color: #0076cc; color: white; --}}">
                 <span class="info-box-icon"><i class="fas fa-cloud-upload-alt"></i></span>
 
                 <div class="info-box-content">
@@ -120,7 +120,7 @@
                     <div class="progress-bar" style="width: 70%"></div>
                   </div>
                   <span class="progress-description">
-                    70% Increase in 30 Days
+                    blank
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -196,7 +196,7 @@
 
     {{-- Supervisor section --}}
     @role('supervisor')
-    <div class="row">
+    <div class="row  col-md-12">
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
@@ -264,7 +264,7 @@
     <!-- /.row -->
 
 
-    <div class="card card-outline card-primary">
+    <div class="card card-outline card-primary  col-md-12">
       <div class="card-header">Activities</div>
       <div class="card-body">
         <ol>
@@ -282,7 +282,7 @@
 
     {{-- Markers section --}}
     @role('marker')
-    <div class="row">
+    <div class="row  col-md-12">
       <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
@@ -356,7 +356,7 @@
 <!-- page script -->
 @section('script')
 
-<script src="{{ asset('/js/jQuery.scrollText.js') }}"></script>
+<script src="{{ asset('/public/js/jQuery.scrollText.js') }}"></script>
 <script>
  
      $(function(){

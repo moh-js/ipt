@@ -7,7 +7,7 @@
 
 @section('content')
 @if(!$logbook->marked)
-<div class="row">
+<div class="row col-md-10">
 
   <div class="col-md-6">
 	<div class="card card-outline card-primary">

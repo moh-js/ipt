@@ -79,7 +79,8 @@ class LocationController extends Controller
 
         $location->region      = $geo->name;
         $location->name        = $request->name;
-        $location->dep         = $request->dep;
+        $department            = implode(",", $request->dep);
+        $location->dep         = $department;
         $location->district    = $request->district;
         $location->vac         = $request->vac;
         $location->remain      = $request->vac;

@@ -1,9 +1,14 @@
 @extends('layouts.dash')
 
+@section('css')
+
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.css') }}">
+
+@endsection
 
 @section('content')
 
-<div class="card">
+<div class="card col-md-10">
 	<div class="card-header">
 	  <h3 class="card-title">Availabe Vacancies</h3>
 	</div>
@@ -22,29 +27,29 @@
 	    </tr>
 	    </thead>
 	    <tbody>
-	    	@if(!count($loc))
+	    	@if(!count($placements))
 	    		<tr>
 	    			<td colspan="6" class="text-center text-info"><i class="fas fa-info mr-2"></i>There is no industry vacancy availabe for you</td>
 	    		</tr>
 	    	@endif
 	    	@php $count = 1; @endphp
-	    	@foreach($loc as $l)
+	    	@foreach($placements as $placement)
 		    <tr>
 		      <td>{{ $count++ }}</td>
-		      <td>{{ $l->name }}</td>
-		      <td>{{ $l->region }}</td>
-		      <td>{{ $l->district }}</td>
+		      <td>{{ $placement->name }}</td>
+		      <td>{{ $placement->region }}</td>
+		      <td>{{ $placement->district }}</td>
 		      <td>
-		      	@if($l->remain)
+		      	@if($placement->remain)
 		      		<span class="badge badge-pill badge-primary">Available</span>
 		      	@else
 		      		<span class="badge badge-pill badge-danger">Unavailable</span>
 		      	@endif
 		      </td>
 		      <td>
-			      	<button class="btn btn-sm btn-primary @if(!$l->remain) disabled @endif" data-toggle="modal" data-target="#exampleModalCenter"><i class="pr-2 fas fa-check"></i>Request</button>
+			      	<button class="btn btn-sm btn-primary @if(!$placement->remain) disabled @endif" data-toggle="modal" data-target="#exampleModalCenter"><i class="pr-2 fas fa-check"></i>Request</button>
 
-		      	<form action="{{ route('request.placement', $l->id) }}" method="post">
+		      	<form action="{{ route('request.placement', $placement->id) }}" method="post">
 			      		@csrf
 			      	<!-- Modal -->
 					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -71,7 +76,7 @@
 		    </tr>
 		    @endforeach
 		    <tr>
-		    	@if(!isset($loc))
+		    	@if(!isset($placements))
 		    		<p class="text-center">There is no industrial vaccancy available for your department</p>
 		    	@endif
 		    </tr>
@@ -80,5 +85,25 @@
 	</div>
 </div>
 
+
+@endsection
+
+@section('script')
+
+<!-- DataTables -->
+<script src="{{ asset('/public/assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script>
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false
+    });
+  });
+</script>
 
 @endsection

@@ -25,7 +25,7 @@ class CreateArrivalsTable extends Migration
             $table->integer('placement');
             $table->integer('placement_id');
             $table->string('location')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

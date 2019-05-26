@@ -21,7 +21,6 @@ class AdminImport implements ToModel, WithHeadingRow
            'name'     => $row['name'],
            'email'    => $row['email'], 
            'img'      => $row['image'], 
-           'phone'    => $row['phone'], 
            'password' => bcrypt($row['password']),
         ]);
 

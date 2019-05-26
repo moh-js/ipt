@@ -20,7 +20,6 @@ class SupervisorImport implements ToModel, WithHeadingRow
             'name'       => $row['name'],
             'email'      => $row['email'],
             'img'        => $row['image'],
-            'phone'      => $row['phone'],
             'department' => $row['department'],
             'password'   => bcrypt($row['password']),
         ]);

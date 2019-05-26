@@ -2,13 +2,13 @@
 
 @section('css')
 
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.css') }}">
 
 @endsection
 
 @section('content')
 
-<div class="card card-outline card-primary">
+<div class="card card-outline card-primary col-md-10">
 	<div class="card-header">
 	  Students Logbooks and Reports
 	</div>
@@ -54,8 +54,8 @@
 @section('script')
 
 <!-- DataTables -->
-<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <script>
   $(function () {
     $('#example2').DataTable({
@@ -68,3 +68,5 @@
     });
   });
 </script>
+
+@endsection

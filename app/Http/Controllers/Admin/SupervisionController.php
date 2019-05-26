@@ -27,7 +27,7 @@ class SupervisionController extends Controller
 
     public function superList()
     {
-        $supers = User::role('supervisor')->doesntHave('super_has_student')->get();
+        $supers = User::role('supervisor')->has('super_has_student')->get();
         return view('admin.supervision.supers', [
             'supers' => $supers,
         ]);
@@ -36,6 +36,43 @@ class SupervisionController extends Controller
     public function assignPage()
     {
         return view('admin.supervision.assign');
+    }
+
+    public function edit($id)
+    {
+        $super_has_students = SuperHasStudent::where('super_id', $id)->get();
+        $super              = SuperHasStudent::where('super_id', $id)->get()->first();
+
+        return view('admin.supervision.edit', [
+            'super_has_students' => $super_has_students,
+            'super'              => $super
+        ]);
+    }
+
+    public function deleteStudent($id)
+    {
+        $student = SuperHasStudent::where('student_id', $id);
+        $student->delete();
+
+        toastr()->success("Student has been removed successfully");
+        return back();
+    }
+
+    public function deleteSupervisor($id)
+    {
+        $super = SuperHasStudent::where('super_id', $id);
+        $super->delete();
+
+        toastr()->success("Supervisor has been removed successfully");
+        return back();
+    }
+
+    public function delete()
+    {
+        DB::table('super_has_students')->delete();
+
+        toastr()->success("Data has been removed successfully");
+        return back();
     }
 
     public function assign(Request $request)
@@ -79,25 +116,22 @@ class SupervisionController extends Controller
                     }
                 }
 
-                // $students = collect($students);
-                $department = array();
+                $poped = collect($poped);
 
-                // store department
-                foreach ($poped as $dep) {
+                // Get departments of Specific students
+                $department = $poped->map(function ($value) {
+                    $value = collect($value);
+                    return $value->get('department');
+                })->toArray();
 
-                    $department = array_merge($department, (array)$dep->department);
-
-                }         
-                
-                // count the value of department
-                $count = array_count_values($department);
+                $department = array_count_values($department);         
 
                 // get the deparment which have highest integer value
-                $da = max($count);
-                $da = array_search($da, $count);
-                
+                $count = max($department);
+                $deparment = array_search($count, $department);
+
                 // Get supervisors 
-                $super = User::role('supervisor')->doesntHave('super_has_student')->select('id')->where('department', $da)->get();
+                $super = User::role('supervisor')->doesntHave('super_has_student')->select('id')->where('department', $deparment)->get();
 
                 if (!$super->isNotEmpty()) {
                     $super = User::role('supervisor')->doesntHave('super_has_student')->select('id')->get();

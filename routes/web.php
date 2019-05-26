@@ -28,6 +28,11 @@ Route::get('/dashboard/user', 'Admin\UserController@index')->name('user');
 Route::post('/dashboard/user/addAdmin', 'Admin\UserController@adminImport')->name('admin.import');
 Route::post('/dashboard/user/addStudent', 'Admin\UserController@StudentImport')->name('student.import');
 Route::post('/dashboard/user/addSupervisor', 'Admin\UserController@superImport')->name('supervisor.import');
+
+// Single user
+Route::post('/dashboard/user/addUser', 'Admin\UserController@registerUser')->name('register.user');
+
+
 // Download Sample
 Route::get('dashboard/adownload', 'Admin\UserController@adminSample')->name('admin.download');
 Route::get('dashboard/sdownload', 'Admin\UserController@studentSample')->name('student.download');
@@ -50,6 +55,10 @@ Route::get('dashboard/supervision/student-list', 'Admin\SupervisionController@st
 Route::get('dashboard/supervision/supervisor-list', 'Admin\SupervisionController@superList')->name('admin.supers');
 Route::get('dashboard/supervision/assign', 'Admin\SupervisionController@assignPage')->name('admin.assign.view');
 Route::post('dashboard/supervision/assign/action', 'Admin\SupervisionController@assign')->name('admin.assign');
+Route::get('dashboard/supervision/edit/{id}', 'Admin\SupervisionController@edit')->name('admin.supervision.edit');
+Route::post('dashboard/supervision/student/delete/{id}', 'Admin\SupervisionController@deleteStudent')->name('admin.supervision.student.delete');
+Route::post('dashboard/supervision/supervisor/delete/{id}', 'Admin\SupervisionController@deleteSupervisor')->name('admin.supervisor.delete');
+Route::post('dashboard/supervision/delete', 'Admin\SupervisionController@delete')->name('admin.supervision.delete');
 
 
 
@@ -64,6 +73,11 @@ Route::get('/dashboard/submission/arrival', 'Student\SubmissionController@arriva
 Route::post('/dashboard/submission/arrivalform', 'Student\SubmissionController@arrival_store')->name('arrival.store');
 Route::get('dashboard/submission/logbook&report', 'Student\LogbookController@index')->name('logbook.index');
 Route::post('dashboard/submission/logbook&report/upload', 'Student\LogbookController@store')->name('logbook.upload');
+Route::post('dashboard/submission/logbook&report/delete', 'Student\LogbookController@removeLogbook')->name('logbook.delete');
+
+// Student submission report
+Route::get('dashboard/submission/report', 'Student\LogbookController@submissionReport')->name('logbook.report');
+
 
 // Student Upload Confirmation
 Route::post('dashboard/submission/logbook&report/uploadConfirm/{id}', 'Student\LogbookController@confirm')->name('logbook.confirm');

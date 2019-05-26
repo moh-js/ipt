@@ -1,14 +1,15 @@
+
 @extends('layouts.dash')
 
 @section('css')
-	<link rel="stylesheet" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('/public/assets/plugins/select2/select2.min.css') }}">
 @endsection
 
 
 @section('content')
 
 
-<div class="card card-outline card-primary">
+<div class="card card-outline card-primary col-md-10">
     <div class="card-header">
     	Arrival Form
     </div>
@@ -69,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" id="district" style="display: none;">
                 <label for="district" class="col-md-4 col-form-label-sm text-md-right">District</label>
 
                 <div class="col-md-6">
@@ -135,7 +136,7 @@
         </form>
         <hr class="jumbotron-hr">
         
-        <div>    
+        <div class="text-center">    
             @if(isset($user))
                 <p class="text-info"><i class="fas fa-info-circle text-info pr-1"></i>
                     If you wish to change your arrival information click that button
@@ -144,8 +145,8 @@
                 <form action="{{ route('change.arrival') }}" method="post">
                     @csrf
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                      <i class="far fa-edit pr-2 text-danger"></i>Change
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                      <i class="far fa-trash-alt pr-2"></i>Change
                     </button>
 
                     <!-- Modal -->
@@ -182,7 +183,7 @@
 
 @section('script')
 
-<script src="/custom/js/app.js" type="text/javascript"></script>
+<script src="{{ asset('/public/custom/js/app.js') }}" type="text/javascript"></script>
 <script>
 
     new Vue({
@@ -194,14 +195,17 @@
         },
         methods:{
             getRegions(){
-                axios.get('/get-regions').then(resp=>{
+                axios.get('/ipt_ms/get-regions').then(resp=>{
                     this.regions = resp.data
                 })
             },
             getDi(){
-                axios.get('/get-district/'+this.region_id).then(resp=>{
+                axios.get('/ipt_ms/get-district/'+this.region_id).then(resp=>{
                     this.districts = resp.data
                 })
+
+                var district = document.getElementById('district');
+                district.style = 'display:show;';
 
             }
         },

@@ -10,23 +10,23 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('/assets/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/dist/css/adminlte.min.css') }}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/iCheck/flat/blue.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/iCheck/flat/blue.css') }}">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/morris/morris.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/morris/morris.css') }}">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datepicker/datepicker3.css') }}">
   <!-- Ion Slider -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/ionslider/ion.rangeSlider.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/ionslider/ion.rangeSlider.css') }}">
   <!-- ion slider Nice -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/ionslider/ion.rangeSlider.skinNice.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/ionslider/ion.rangeSlider.skinNice.css') }}">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/daterangepicker/daterangepicker-bs3.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/daterangepicker/daterangepicker-bs3.css') }}">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{ asset('/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Dosis|Raleway" rel="stylesheet">
   <!-- Css Validation -->
@@ -98,7 +98,7 @@
   <aside class="main-sidebar sidebar-light-info elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link">
-      <img src="{{ asset('/img/mbeya_logo.jpg') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .9; box-shadow: none;">
+      <img src="{{ asset('/public/img/mbeya_logo.jpg') }}" alt="AdminLTE Logo" class="brand-image" style="opacity: .9; box-shadow: none;">
       <span class="brand-text font-weight-dark">IPT-M System</span>
     </a>
 
@@ -107,7 +107,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('/img/'. session('user_img')) }}" class="img-circle elevation-2" alt="Image">
+          <img src="{{ asset('/public/img/'. session('user_img')) }}" class="img-circle elevation-2" alt="Image">
         </div>
         <div class="info">
           <a href="#" class="d-block"> {{ Auth::user()->name }} </a>
@@ -162,7 +162,7 @@
             <a href="#" class="nav-link @if($segment == 'location' || $segment == 'vacancy') active @endif ">
               <i class="nav-icon fas fa-map-marker-alt"></i>
               <p>
-                Location
+                Placement
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
@@ -187,12 +187,6 @@
                   <i class="far fa-plus-square nav-icon"></i>
                   <p>Add</p>
                 </a
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('info.create') }}" class="nav-link">
-                  <i class="far fa-edit nav-icon"></i>
-                  <p>Action</p>
-                </a>
               </li>
               @endrole
             </ul>
@@ -225,7 +219,7 @@
               <li class="nav-item">
                 <a href="{{ route('admin.assign.view') }}" class="nav-link">
                   <i class="far fa-edit nav-icon"></i>
-                  <p>Action</p>
+                  <p>Assign</p>
                 </a>
               </li>
             </ul>
@@ -236,12 +230,6 @@
                 <a href="{{ route('super.student_list') }}" class="nav-link">
                   <i class="fas fa-user-graduate nav-icon"></i>
                   <p>Students</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-chart-line nav-icon"></i>
-                  <p>Performance</p>
                 </a>
               </li>
             </ul>
@@ -269,14 +257,8 @@
               </li>
               <li class="nav-item">
                 <a href="{{ route('info.create') }}" class="nav-link">
-                  <i class="far fa-file nav-icon"></i>
+                  <i class="far fa-paper-plane nav-icon"></i>
                   <p>Post</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('info.create') }}" class="nav-link">
-                  <i class="far fa-edit nav-icon"></i>
-                  <p>Action</p>
                 </a>
               </li>
             </ul>
@@ -326,7 +308,7 @@
               <li class="nav-item">
                 <a href="{{ route('sub.arrival') }}" class="nav-link">
                   <i class="fas fa-map-marked-alt nav-icon"></i>
-                  <p>Arrival Info</p>
+                  <p>Arrival Note</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -336,7 +318,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('logbook.report') }}" class="nav-link">
                   <i class="fas fa-table nav-icon"></i>
                   <p>Submission Report</p>
                 </a>
@@ -403,7 +385,9 @@
     <!-- /.content-header -->
     <section class="content">
         
-        @yield('content')
+        <div class="row justify-content-center">
+            @yield('content')
+        </div>
     
     </section>
   
@@ -438,30 +422,27 @@
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="{{ asset('/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{{ asset('/assets/plugins/morris/morris.min.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/morris/morris.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('/assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <!-- jQuery Knob Chart -->
-<script src="{{ asset('/assets/plugins/knob/jquery.knob.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/knob/jquery.knob.js') }}"></script>
 <!-- daterangepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="{{ asset('/assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- datepicker -->
-<script src="{{ asset('/assets/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->
-<script src="{{ asset('/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <!-- Slimscroll -->
-<script src="{{ asset('/assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ asset('/assets/plugins/fastclick/fastclick.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('/assets/dist/js/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('/assets/dist/js/demo.js') }}"></script>
-
+<script src="{{ asset('/public/assets/dist/js/adminlte.js') }}"></script>
  @yield('script')
 
 @toastr_js

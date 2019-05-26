@@ -28,6 +28,7 @@ class UserController extends Controller
         $supers     = User::role('supervisor')->get();
         $markers    = User::role('marker')->get();
         $students   = User::role('student')->get();
+        $roles      = DB::table('roles')->get();
 
     	return view('admin.user.index', [
         
@@ -35,11 +36,12 @@ class UserController extends Controller
             'students'  => $students,
             'markers'   => $markers,
             'supers'    => $supers,
+            'roles'    => $roles,
 
         ]);
     }
 
-// adding user
+// adding multiple user
 
     public function adminImport(Request $request) 
     {
@@ -164,6 +166,37 @@ class UserController extends Controller
         $path =  storage_path('app/public/excel/students.xlsx');
         return response()->download($path);
 
+    }
+
+
+    // Adding single user
+    public function registerUser(Request $request)
+    {
+        $this->validate($request, [
+            'name'       => ['required', 'string', 'max:255'],
+            'id'         => ['required', 'string', 'max:20'],
+            'department' => ['required', 'string', 'max:20'],
+            'role'       => ['required', 'string', 'max:20'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password'   => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $user = new User;
+
+        $user->name         = $request->name;
+        $user->email        = $request->email;
+        $user->userId       = $request->id;
+        $user->img          = 'user.png';
+        $user->department   = $request->department;
+        $user->password     = bcrypt($request->password);
+
+        $user->save();
+
+        $user->assignRole($request->role);
+
+
+        toastr()->success('User is added successfully,');
+        return back();
     }
 
 }

@@ -1,9 +1,14 @@
 @extends('layouts.dash')
 
+@section('css')
+
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.css') }}">
+
+@endsection
 
 @section('content')
 
-<div class="card">
+<div class="card col-md-10">
 	<div class="card-header">
 		Performance Result
 	</div>
@@ -37,5 +42,25 @@
 		<a title="Export data to excel" class="btn btn-success" href="{{ route('student.excel') }}"><i class="fa-2x fas fa-file-excel"></i></a>	
 	</div>
 </div>
+
+@endsection
+
+@section('script')
+
+<!-- DataTables -->
+<script src="{{ asset('/public/assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script>
+  $(function () {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": false,
+      "autoWidth": false
+    });
+  });
+</script>
 
 @endsection

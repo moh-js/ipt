@@ -19,12 +19,10 @@ $rand = ['archtecture', 'computer', 'civil', 'mechanical', 'electrical', 'lab'];
         'name' => $faker->name,
         'userId' => str_random(6),
         'img' => 'user.png',
-        'phone' => rand(111111111,999999999),
         'department' => $rand[array_rand($rand)],
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
     ];
 });
 

@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="card card-info card-outline" id=location>
+<div class="card card-info card-outline col-md-10" id=location>
     <div class="card-header">
       <h3 class="card-title">
         Add Industrial Vaccancie
@@ -46,7 +46,7 @@
                 <label for="dep" class="col-md-4 col-form-label-sm">Department</label>
 
                 <div class="col-md-6">
-                    <select class="form-control form-control-sm select2" multiple="multiple" data-placeholder="Select a Department" name="dep   " 
+                    <select class="form-control form-control-sm select2" multiple="multiple" data-placeholder="Select a Department" name="dep[]" 
                           style="width: 100%;">
                     <option value="archtecture">Archtecture</option>
                     <option value="civil">Civil</option>
@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" style="display: none;" id="district">
                 <label for="district" class="col-md-4 col-form-label-sm">District</label>
 
                 <div class="col-md-6">
@@ -125,7 +125,7 @@
 @endsection
 
 @section('script')
-<script src="/custom/js/app.js" type="text/javascript"></script>
+<script src="{{ asset('/public/custom/js/app.js') }}" type="text/javascript"></script>
 <script>
     
 
@@ -138,14 +138,17 @@
         },
         methods:{
             getRegions(){
-                axios.get('/regions').then(resp=>{
+                axios.get('/ipt_ms/regions').then(resp=>{
                     this.regions = resp.data
                 })
             },
             getDi(){
-                axios.get('/districts/'+this.region_id).then(resp=>{
+                axios.get('/ipt_ms/districts/'+this.region_id).then(resp=>{
                     this.districts = resp.data
                 })
+
+                var district = document.getElementById('district');
+                district.style = 'display:show;';
 
             }
         },

@@ -16,9 +16,9 @@ class CreateSuperHasStudentsTable extends Migration
         Schema::create('super_has_students', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('super_id');
-            $table->foreign('super_id')->references('id')->on('users');
+            $table->foreign('super_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedInteger('student_id');
-            $table->foreign('student_id')->references('user_id')->on('arrivals');
+            $table->foreign('student_id')->references('id')->on('arrivals')->onDelete('cascade');
             $table->timestamps();
         });
     }

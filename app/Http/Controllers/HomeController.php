@@ -46,29 +46,51 @@ class HomeController extends Controller
         $logbook        = Logbook::all()->count();
         $dep_logbook    = Logbook::all()->where('department', $dep)->count();
         $logbook_marked = Logbook::all()->where('department', $dep)->where('marked', 1)->count();
-        $industry       = Location::all()->where('dep', $dep);
+        $locations       = Location::all();
 
         // cheking if the user is student
         $check = Auth::user()->hasRole('student');
        
         // If is the student retreive the remaining vacancy 
+        $placements = array();
         if($check){
+            foreach ($locations as $location ) {
+                $departments = explode(",", $location->dep);
+
+                foreach ($departments as $department) {
+                    if ($department == $dep) {
+                        $placements[] = $location;
+                    }
+                }
+            }
             
-            if(count($industry)){
+            if(isset($placements)){
 
-                $remT = 0;
+                $remT  = 0;
+                $total = 0;
 
-                foreach ($industry as $i) {
+                foreach ($placements as $i) {
 
-                  $remT = $i->remain + $remT;
+                  $remT  = $i->remain + $remT;
+                  $total = $i->vac + $total;
                 
                 }
 
                 $vac = $remT;
+                if ($total) {
+                $percentage = ($vac / $total) * 100;
+                }
+                else{ $percentage = 0;}
 
-            }else{$vac = 0;}
+            }else{
+                $vac = 0;
+                $percentage = 0;
+            }
             
-        }else{$vac = 0;}
+        }else{
+            $vac = 0;
+            $percentage = 0;
+        }
         
         // Checking if the user has login for the first time.
         $user = Auth::user()->flag;
@@ -82,14 +104,15 @@ class HomeController extends Controller
         //If not redirect to the Home page 
         return view('home', [
             'infos'         => $infos,
-            'industry'      => $industry,
+            'placements'    => $placements,
             'vac'           => $vac,
+            'percentage'    => $percentage,
             'adminIndustry' => $adminIndustry,
             'arrival'       => $arrival,
             'logbook'       => $logbook,
             'users'         => $users,
             'logbook_mark'  => $logbook_marked,
-            'dep_logbook'  => $dep_logbook,
+            'dep_logbook'   => $dep_logbook,
         ]);
     }
 

@@ -10,7 +10,7 @@
 
 <div class="card col-md-10">
 	<div class="card-header">
-	  <h3 class="card-title">Added News</h3>
+	  <h3 class="card-title"><strong>{{ $super->super->name }}</strong> assigned Students </h3>
 	</div>
 	<!-- /.card-header -->
 	<div class="card-body">
@@ -18,36 +18,34 @@
 	    <thead>
 	    <tr>
 	      <th>#</th>
-	      <th>Title</th>
-	      <th>Description</th>
-	      <th>By</th>
+	      <th>Reg #</th>
+	      <th>Student Name</th>
+	      <th>District</th>
 	      <th>Action</th>
 
 	    </tr>
 	    </thead>
 	    <tbody>
 	    	@php $count = 1; @endphp
-	    	@foreach($news as $n)
+	    	@foreach($super_has_students as $student)
 		    <tr>
 		      <td>{{ $count++ }}</td>
-		      <td>{{ $n->title }}</td>
-		      <td>{!! str_limit($n->description, 50) !!}</td>
-		      <td>{{ $n->user->name }}</td>
+		      <td>{{ $student->student->user->userId }}</td>
+		      <td>{{ $student->student->user->name }}</td>
+		      <td>{{ $student->student->region }}</td>
 		      <td class="text-center">
-		      	<a href="{{ route('info.edit', $n->id) }}" title="Edit" class="text-info"><i class="fas fa-edit mr-2"></i></a>
-		      	<a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" title="Delete" class="text-danger"><i class="fas fa-trash-alt"></i></a>
-			      	<form action="{{ route('info.destroy', $n->id) }}" method="post" hidden>
-		                @method('DELETE')
+		      	<a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+			      	<form action="{{ route('admin.supervision.student.delete', $student->student_id) }}" method="post" hidden>
 		                @csrf
 		            </form>
 		      </td>
 		    </tr>
 		    @endforeach
-		    @if(!count($news))
+{{-- 		    @if(!count($news))
 	    		<tr>
 	    			<td colspan="6" class="text-center text-info"><i class="fas fa-info mr-2"></i>There is no any News added</td>
 	    		</tr>
-	    	@endif
+	    	@endif --}}
 		</tbody>
 	  </table>
 	</div>
@@ -64,7 +62,7 @@
 <script>
   $(function () {
     $('#example2').DataTable({
-      "paging": true,
+      "paging": false,
       "lengthChange": false,
       "searching": true,
       "ordering": true,

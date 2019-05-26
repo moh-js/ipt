@@ -10,22 +10,22 @@
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Admin Login') }}">
                         @csrf 
                         <div class="form-group">
-                            <div class="col-md-8 offset-2">
+                            <div class="col-md-8 offset-md-2">
                                 <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text"><i class="far fa-user"></i></div>
                                 </div>
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
-                                    required autofocus> @if ($errors->has('email'))
+                                <input id="userId" type="text" class="form-control{{ $errors->has('userId') ? ' is-invalid' : '' }}" name="userId" value="{{ old('userId') }}"
+                                    required autofocus> @if ($errors->has('userId'))
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('userId') }}</strong>
                                     </span> @endif
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group ">
-                            <div class="col-md-8 offset-2">
+                            <div class="col-md-8 offset-md-2">
                                 <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text"><i class="fas fa-lock"></i></div>

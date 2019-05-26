@@ -2,13 +2,13 @@
 
 @section('css')
 
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.css') }}">
 
 @endsection
 
 @section('content')
 
-<div class="card">
+<div class="card col-md-10">
 	<div class="card-header">
 	  <h3 class="card-title">Added Vacancies</h3>
 	</div>
@@ -33,7 +33,14 @@
 		      <td>{{ $count++ }}</td>
 		      <td>{{ $l->name }}</td>
 		      <td>{{ $l->region }}</td>
-		      <td><span class="badge badge-primary">{{ $l->dep }}</span></td>
+		      @php
+		      	$departments = explode(",", $l->dep);
+		      @endphp
+		      <td>
+		      	@foreach ($departments as $deparment)
+		      		<span class="badge badge-primary">{{ $deparment }}</span>
+		      	@endforeach
+		      </td>
 		      <td>{{ $l->vac }}</td>
 		      <td class="text-center">
 		      	<a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
@@ -61,8 +68,8 @@
 @section('script')
 
 <!-- DataTables -->
-<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <script>
   $(function () {
     $('#example2').DataTable({

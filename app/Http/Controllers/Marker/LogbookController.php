@@ -16,7 +16,7 @@ class LogbookController extends Controller
 
 	public function __construct()
 	{
-		$this->middleware(['auth', 'role:marker']);
+		$this->middleware(['auth', 'role:marker'])->except(['openLogbook', 'openReport']);
 	}
 
 	// View all student Logbooks
@@ -54,8 +54,7 @@ class LogbookController extends Controller
 
 		}else{
 
-			toastr()->error('File not found');
-			return back();
+			abort(404, 'We could not find the file you where looking for');
 		}
     }
 

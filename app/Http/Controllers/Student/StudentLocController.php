@@ -18,8 +18,20 @@ class StudentLocController extends Controller
     public function index()
     {
     	$dep = Auth::user()->department;
-    	$loc = Location::all()->where('dep', $dep);
-    	return view('student.location.index', ['loc' => $loc]);
+    	$locations = Location::all();
+        $placements = array();
+
+        foreach ($locations as $location ) {
+            $departments = explode(",", $location->dep);
+
+            foreach ($departments as $department) {
+                if ($department == $dep) {
+                    $placements[] = $location;
+                }
+            }
+        }
+
+    	return view('student.location.index', ['placements' => $placements]);
     }
 
     public function request($id)
@@ -38,7 +50,7 @@ class StudentLocController extends Controller
 		    	$arrival->user_id 		= Auth::id();
 		    	$arrival->region 		= $location->region;
 		    	$arrival->district 		= $location->district;
-		        $arrival->phone         = Auth::user()->phone;
+		        $arrival->phone         = '0658345465';
 		    	$arrival->phone_super 	= '043021023';
                 $arrival->location      = $location->location;
 		    	$arrival->department 	= Auth::user()->department;
@@ -56,7 +68,7 @@ class StudentLocController extends Controller
 	    		
     		}else{
 
-    			toastr()->success('You can not send request while you have already submitted arrival note or another request');
+    			toastr()->error('You can not send request while you have already submitted arrival note or another request');
 	    		return back();
 
     		}

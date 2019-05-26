@@ -22,7 +22,7 @@ class CreateResultsTable extends Migration
             $table->string('supervisor');
             $table->string('marker');
             $table->integer('total');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,13 +2,13 @@
 
 @section('css')
 
-  <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.css') }}">
+  <link rel="stylesheet" href="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.css') }}">
 
 @endsection
 
 @section('content')
 
-<div class="card">
+<div class="card col-md-10">
 	<div class="card-header">
 	  <h3 class="card-title">Students Arrival Note</h3>
 	</div>
@@ -57,8 +57,8 @@
 @section('script')
 
 <!-- DataTables -->
-<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('/public/assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
 <script>
   $(function () {
     $('#example2').DataTable({

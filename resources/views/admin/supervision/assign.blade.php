@@ -1,17 +1,8 @@
 @extends('layouts.dash')
 
 @section('content')
-<div class="callout callout-info">
-  <h5>Assign Supervisors to students</h5>
-  	<div class="col-6">
-  		
-  	</div>
-		
-	  <p class="col-10">Click the assign button to assign supervisor to students automatically.</p>
 
-</div>
-
-<div class="card">
+<div class="card col-md-10">
 	<div class="card-header">
 		Setting
 	</div>
@@ -44,5 +35,16 @@
 
   		</form>
 	</div>
+</div>
+
+<div class="card col-md-10">
+  <div class="card-header">Delete</div>
+  <div class="card-body">
+    <p>If you wish to delete all the data of supervisors who assigned to students.</p>
+    <a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="text-danger"><i class="fas fa-trash-alt mr-2"></i>Delete</a>
+      <form action="{{ route('admin.supervision.delete') }}" method="post" hidden>
+          @csrf
+      </form>
+  </div>
 </div>
 @endsection

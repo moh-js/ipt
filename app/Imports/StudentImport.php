@@ -20,9 +20,8 @@ class StudentImport implements ToModel, WithHeadingRow
             'name'       => $row['name'],
             'email'      => $row['email'], 
             'img'        => $row['image'], 
-            'phone'      => $row['phone'], 
+            'award'      => $row['award'], 
             'department' => $row['department'],
-            'course'     => $row['course'],
             'password'   => bcrypt($row['password']),
         ]);
 

@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','userId', 'img', 'phone', 'department', 'course'
+        'name', 'email','userId', 'password', 'img', 'award', 'department', 'flag'
     ];
 
     /**
@@ -59,9 +59,5 @@ class User extends Authenticatable
         return $this->hasMany('App\SuperHasStudent', 'super_id', 'id');
     }
 
-    public function student_has_super()
-    {
-        return $this->hasOne('App\SuperHasStudent', 'student_id', 'id');
-    }
 
 }

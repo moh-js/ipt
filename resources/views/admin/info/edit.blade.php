@@ -27,14 +27,15 @@
     <!-- /.card-header -->
     <div class="card-body">
       <div class="mb-3">
-      	<form method="POST" action="{{ route('info.store') }}" enctype="multipart/form-data">
+      	<form method="POST" action="{{ route('info.update', $news->id) }}" enctype="multipart/form-data">
             @csrf 
+            @method('PUT')
 			
 			<div class="form-group row">
                 <label for="title" class="col-md-4 col-form-label-sm">Title</label>
 
                 <div class="col-md-6">
-                    <input id="title" type="text" class="form-control form-control-sm{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required autofocus>
+                    <input id="title" type="text" class="form-control form-control-sm{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ $errors->has('title') ? old('title') : $news->title }}" required autofocus>
 
                     @if ($errors->has('title'))
                         <span class="invalid-feedback" role="alert">
@@ -48,7 +49,7 @@
                 <label for="attachment" class="col-md-4 col-form-label-sm">Attachment</label>
 
                 <div class="col-md-6">
-                    <input id="attachemnt" type="file" class="form-control-file {{ $errors->has('attachement') ? ' is-invalid' : '' }}" name="attach" value="{{ old('attachement') }}" autofocus>
+                    <input id="attachemnt" type="file" class="form-control-file {{ $errors->has('attachement') ? ' is-invalid' : '' }}" name="attach" autofocus>
 
                     @if ($errors->has('attachement'))
                         <span class="invalid-feedback" role="alert">
@@ -58,7 +59,7 @@
                 </div>
             </div>
         
-        	<textarea id="editor1" name="description" style="width: 100%"></textarea>
+        	<textarea id="editor1" name="description" style="width: 100%">{{ $errors->has('description') ? old('description') : $news->description }}</textarea>
 
         	<div class="form-group row mt-2">
                 <div class="col-md-6 ">

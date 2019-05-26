@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="row">
+<div class="row col-md-11">
   <div class="col-md-3 col-sm-6 col-12">
     <div class="info-box">
       <span class="info-box-icon bg-info"><i class="fas fa-user-cog"></i></span>
@@ -58,10 +58,10 @@
 </div>
 <!-- /.row -->
 
-<div class="alert alert-info mt-4">
+{{-- <div class="alert alert-info mt-4">
 		<i class="icon fas fa-info-circle"></i>
 		User can be added according to their Role, click the button of the User role to add users
-</div>
+</div> --}}
 
 {{-- <div class="card card-primary card-outline">
   <div class="card-header">
@@ -87,9 +87,9 @@
 
 
 	<!-- Custom Tabs -->
-    <div class="card card-primary card-outline">
+    <div class="card card-primary card-outline col-md-11 mt-5">
       <div class="card-header d-flex p-0">
-        <h3 class="card-title p-3">Create Users</h3>
+        <h3 class="card-title p-3">Create Multiple Users</h3>
         <ul class="nav nav-pills ml-auto p-2">
           <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Admin</a></li>
           <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Supervisor</a></li>
@@ -119,11 +119,10 @@
                    @csrf
                    <div class="row">
                        <div class="form-group col-8">
-                          <input type="file" name="file" class="custom-file-input">
-                        <label class="custom-file-label" for="exampleInputFile">Choose admin file</label>
+                          <input type="file" name="file" required>
                        </div>
                        <div class="form-group col-4">
-                          <input type="submit" value="Add" class="btn btn-primary">  
+                          <input type="submit" value="Add" class="btn btn-sm btn-primary">  
                        </div>
                     </div>  
                 </form>
@@ -151,11 +150,10 @@
                    @csrf
                    <div class="row">
                        <div class="form-group col-8">
-                          <input type="file" name="file" class="custom-file-input">
-                        <label class="custom-file-label" for="exampleInputFile">Choose supervisor file</label>
+                          <input type="file" name="file" required>
                        </div>
                        <div class="form-group col-4">
-                          <input type="submit" value="Add" class="btn btn-primary">  
+                          <input type="submit" value="Add" class="btn btn-sm btn-primary">  
                        </div>
                     </div>  
                   </form>
@@ -183,11 +181,10 @@
                    @csrf
                    <div class="row">
                        <div class="form-group col-8">
-                          <input type="file" name="file" class="custom-file-input">
-                        <label class="custom-file-label" for="exampleInputFile">Choose marker file</label>
+                          <input type="file" name="file" required>
                        </div>
                        <div class="form-group col-4">
-                          <input type="submit" value="Add" class="btn btn-primary">  
+                          <input type="submit" value="Add" class="btn btn-sm btn-primary">  
                        </div>
                     </div>  
                 </form>
@@ -215,11 +212,10 @@
                    @csrf
                    <div class="row">
                        <div class="form-group col-8">
-                        <input type="file" name="file" class="custom-file-input">
-                        <label class="custom-file-label" for="exampleInputFile">Choose student file</label>
+                          <input type="file" name="file" required>
                        </div>
                        <div class="form-group col-4">
-                          <input type="submit" value="Add" class="btn btn-primary">  
+                          <input type="submit" value="Add" class="btn btn-sm btn-primary">  
                        </div>
                     </div>  
                 </form>
@@ -232,6 +228,131 @@
       </div><!-- /.card-body -->
     </div>
     <!-- ./card -->
+
+    <div class="card card-primary card-outline col-md-11 mt-3">
+      <div class="card-header">Create One User</div>
+      <div class="card-body">
+        <form method="post" action="{{ route('register.user') }}">
+          @csrf
+          <div class="form-group row">
+              <label for="id" class="col-md-4 col-form-label-sm text-md-right">{{ __('ID') }}</label>
+
+              <div class="col-md-6">
+                  <input id="id" type="text" class="form-control form-control-sm{{ $errors->has('id') ? ' is-invalid' : '' }}" name="id" value="{{ old('id') }}" required autofocus>
+
+                  @if ($errors->has('id'))
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('id') }}</strong>
+                      </span>
+                  @endif
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="name" class="col-md-4 col-form-label-sm text-md-right">{{ __('Name') }}</label>
+
+              <div class="col-md-6">
+                  <input id="name" type="text" class="form-control form-control-sm{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                  @if ($errors->has('name'))
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('name') }}</strong>
+                      </span>
+                  @endif
+              </div>
+          </div>
+
+
+          <div class="form-group row">
+              <label for="email" class="col-md-4 col-form-label-sm text-md-right">{{ __('E-Mail Address') }}</label>
+
+              <div class="col-md-6">
+                  <input id="email" type="email" class="form-control form-control-sm{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+
+                  @if ($errors->has('email'))
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('email') }}</strong>
+                      </span>
+                  @endif
+              </div>
+          </div>
+
+           <div class="form-group row">
+                <label for="department" class="col-md-4 col-form-label-sm text-md-right">department</label>
+
+                <div class="col-md-6">
+                    <select class="form-control form-control-sm" data-placeholder="Select a department" name="department" 
+                          style="width: 100%;">
+                          <option selected>Choose Department...</option>
+                    <option value="archtecture">Archtecture</option>
+                    <option value="civil">Civil</option>
+                    <option value="computer">Computer</option>
+                    <option value="electrical">Electrical</option>
+                    <option value="lab">Lab</option>
+                    <option value="mechanical">Mechanical</option>
+                    <option value="sbm">SBM</option>
+                  </select>
+
+                    @if ($errors->has('department'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('department') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+
+          <div class="form-group row">
+              <label for="role" class="col-md-4 col-form-label-sm text-md-right">{{ __('Role') }}</label>
+
+              <div class="col-md-6">
+                  <select id="role" type="text" class="form-control form-control-sm{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" required>
+                    <option selected>Choose Role</option>
+                    @foreach ($roles as $role)
+                      <option value="{{ $role->name }}">{{ title_case($role->name) }}</option>
+                    @endforeach
+                  </select>
+
+                  @if ($errors->has('role'))
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('role') }}</strong>
+                      </span>
+                  @endif
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="password" class="col-md-4 col-form-label-sm text-md-right">{{ __('Password') }}</label>
+
+              <div class="col-md-6">
+                  <input id="password" type="password" class="form-control form-control-sm{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                  @if ($errors->has('password'))
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $errors->first('password') }}</strong>
+                      </span>
+                  @endif
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="password-confirm" class="col-md-4 col-form-label-sm text-md-right">{{ __('Confirm Password') }}</label>
+
+              <div class="col-md-6">
+                  <input id="password-confirm" type="password" class="form-control form-control-sm" name="password_confirmation" required>
+              </div>
+          </div>
+
+          <div class="form-group row mb-0">
+              <div class="col-md-6 offset-md-4">
+                  <button type="submit" class="btn btn-primary">
+                      {{ __('Register') }}
+                  </button>
+              </div>
+          </div>
+      </form>
+      </div>
+    </div>
+
   </div>
   <!-- /.col -->
 </div>

@@ -18,11 +18,11 @@ class UsersTableSeeder extends Seeder
     	DB::table('users')->delete();
 
         DB::table('users')->insert([
-            'name' => 'ILO',
+            'name' => 'Mohamed Said',
             'email' => 'admin@gmail.com',
             'img' => 'user.png',
-            'userId' => '111111',
-            'flag' => '0',
+            'userId' => '201611039',
+            'flag' => '1',
             'password' => bcrypt('secret'),
         ]);
 
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         
         $user->assignRole('admin');
 
-        $users = factory(App\User::class, 1000)
+        $users = factory(App\User::class, 200)
                     ->create()
                     ->each(function ($user) {
                 $user->arrival()->save(factory(App\Arrival::class)->make());

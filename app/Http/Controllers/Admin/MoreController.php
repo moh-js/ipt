@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Igaster\LaravelCities\Geo;
 use App\Arrival;
 use DB;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class MoreController extends Controller
@@ -17,21 +18,14 @@ class MoreController extends Controller
 
     public function arrival()
     {
-    	$geo 	 = Geo::getCountry('TZ'); 
-        $regions = $geo->getChildren();          
-            
-    	
-    	return view('admin.more.arrival', [
-    		'regions' => $regions,
-    	]);
+    	return view('admin.more.arrival');
     }
 
     public function arrivalData($id)
     {	
-    	$geo 	 = Geo::getCountry('TZ'); 
-        $regions = $geo->getChildren();
+        $id = str_replace('_', '/', $id);
 
-        $arrival = DB::table('arrivals')->orderBy('region', 'asc')->get();
+        $arrival = Arrival::doesntHave('assigned')->orderBy('region', 'asc')->get();
         
         // group by region
         $arrival = $arrival->groupBy('region');
@@ -50,28 +44,23 @@ class MoreController extends Controller
             
         }
 
-       		$data = collect($data);
-        	
-        	$arrival = $data->where('region', $id);
-
-        	/* Take all student department and store in one array*/
-            $re = array();
-
-            // store department
-            foreach ($arrival as $value) {
-
-                $re = array_merge($re, (array)$value->department);
-
-            }
-
-            $re = array_count_values($re);
-
+   		$data = collect($data);
     	
-    	return view('admin.more.arrival', [
-    		'regions' => $regions,
-    		'arrival' => $arrival,
-    		'id' 	  => $id,
-    		're' 	  => $re,
-    	]);
+    	$arrival = $data->where('region', $id);
+
+        // Get department of Specific Region
+        $department = $arrival->map(function ($value) {
+            $value = collect($value);
+            return $value->get('department');
+        })->toArray();
+
+        $department = array_count_values($department);
+
+
+        $collection[] = $arrival;
+        $collection[] = $id;
+        $collection[] = $department;
+
+        return $collection;
     }
 }

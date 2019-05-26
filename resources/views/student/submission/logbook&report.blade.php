@@ -5,7 +5,7 @@
 @section('content')
 
 
-	<div class="card">
+	<div class="card col-md-10">
 		<div class="card-body">
 			<div class="row">
 				<div class="col">
@@ -34,10 +34,10 @@
 	</div>
 	
 
-	<div class="justify-content-center">
+	<div class="justify-content-center col-md-11">
 		<div class="card card-outline card-primary">
 			<div class="card-header">
-				Arrival Form
+				Upload 
 			</div>
 
 			<div class="card-body">
@@ -49,7 +49,7 @@
 			            <label for="logbook" class="col-md-4 col-form-label text-md-right">Logbook</label>
 
 			            <div class="col-md-8">
-			                <input type="file" name="logbook" class=" mt-1 {{ $errors->has('logbook') ? ' is-invalid' : '' }}" required>
+			                <input type="file" name="logbook" class=" mt-1 {{ $errors->has('logbook') ? ' is-invalid' : '' }}" required @if(isset($log)) {{ $log->confirm ? 'disabled' : '' }} @endif>
 		                        {{-- <label class="custom-file-label" for="exampleInputFile">Choose logbook file</label> --}}
 
 			                @if ($errors->has('logbook'))
@@ -64,7 +64,7 @@
 			            <label for="report" class="col-md-4 col-form-label text-md-right">Report</label>
 
 			            <div class="col-md-8">
-			                <input type="file" name="report" class=" mt-1 {{ $errors->has('report') ? ' is-invalid' : '' }}" required>
+			                <input type="file" name="report" class=" mt-1 {{ $errors->has('report') ? ' is-invalid' : '' }}" required @if(isset($log)) {{ $log->confirm ? 'disabled' : '' }} @endif>
 		                        {{-- <label class="custom-file-label" for="exampleInputFile">Choose a report file</label> --}}
 
 			                @if ($errors->has('report'))
@@ -77,7 +77,7 @@
 
 			        </div>
 			        
-		            @if(!$log)
+		            	@if(!isset($log))
 
 			        <div class="form-group">
 		                <div class="text-center">
@@ -89,11 +89,11 @@
 
 		        </form>
 
-		        @else
+		        	@else
 		            <div class="form-group">
 		                <div class="text-center">
 		                    <button type="submit" class="btn btn-primary">
-		                       <i class="fas fa-edit mr-1"></i>Change upload
+		                       <i class="fas fa-edit mr-1"></i>Update
 		                    </button>
 		                </div>
 		            </div>
@@ -105,7 +105,7 @@
 			    	<!-- Button trigger modal -->
 			    	<div class="text-center">
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
-						 <i class="fas fa-lock mr-1"></i> Confirm Upload
+						 <i class="fas fa-lock mr-1"></i> Confirm
 						</button>
 					</div>
 

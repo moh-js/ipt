@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Logbook;
 use Auth;
+use App\User;
 use App\Http\Controllers\Controller;
 
 class LogbookController extends Controller
@@ -37,7 +38,7 @@ class LogbookController extends Controller
 
     		if ($logbook->confirm) {
     			// you cannot upload
-    			toastr()->error('You cannot change upload because you have already confimed your upload');
+    			toastr()->error('You cannot upload because you have already confimed');
 				return back();
     		}else{
     				// Get previous logbook and report
@@ -74,7 +75,7 @@ class LogbookController extends Controller
 
 		    		$logbook->save();
 
-		    		toastr()->success('Your Logbook and Report has been successfully uploaded again');
+		    		toastr()->success('Your Logbook and Report has been successfully updated');
 		    		return back();
 	    			
 	    		}
@@ -94,7 +95,7 @@ class LogbookController extends Controller
 		    		$name 	 = $request->file('report')->getClientOriginalName();
 		    		$file1 	 = $name;
 		    		
-		    		$request->logbook->storeAs('public/reports', $file1);
+		    		$request->report->storeAs('public/reports', $file1);
 		    		$status2 = 1;
 		    	}
 
@@ -133,5 +134,30 @@ class LogbookController extends Controller
 			return back();
     	}
 
+    }
+
+    public function removeLogbook()
+    {
+    	$logbook = Logbook::where('user_id', Auth::id())->first();
+
+    	if(isset($logbook))
+    	{
+
+			Storage::delete('public/logbooks/'.$logbook->logbook);
+			Storage::delete('public/reports/'.$logbook->report);
+
+    		$logbook->delete();
+
+    		toastr()->success('You have delete successfully');
+    		return back();
+    	}
+
+    }
+
+    function submissionReport()
+    {
+    	$user = User::find(Auth::id());
+
+    	return view('student.submission.report', [ 'user' => $user ]);
     }
 }

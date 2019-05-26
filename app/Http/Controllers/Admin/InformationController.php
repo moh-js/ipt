@@ -61,8 +61,9 @@ class InformationController extends Controller
         
         if($request->hasFile('attach')){
 
+            $name    = $request->file('attach')->getClientOriginalName();
             $ext = $request->attach->extension();
-            $file = date('YmdHis').rand(1, 9999).'.'.$ext;
+            $file = $name.rand(1, 9999).'.'.$ext;
             $request->attach->storeAs('public/attach', $file);
 
             $info->attachment = $file;  
@@ -93,7 +94,11 @@ class InformationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $news = Info::find($id);
+
+        return view('admin.info.edit', [
+            'news' => $news,
+        ]);
     }
 
     /**
@@ -105,7 +110,40 @@ class InformationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+
+                'title'         => 'required|max:50',
+                'attachment'    => 'size:1020',
+                'description'   => 'required|max:200',
+
+            ]);
+
+        $info = Info::find($id);
+
+        $info->title        = $request->title;
+        $info->description  = $request->description;
+        $info->user_id      = Auth::user()->id;
+        
+        if($request->hasFile('attach')){
+
+            if(isset($info->attachment))
+            {
+                // deleting old Attachment
+                Storage::delete('public/attach/'.$info->attachment);
+            }
+
+            $name    = $request->file('attach')->getClientOriginalName();
+            $ext = $request->attach->extension();
+            $file = $name.rand(1, 9999).'.'.$ext;
+            $request->attach->storeAs('public/attach', $file);
+
+            $info->attachment = $file;  
+        }
+
+        $info->save();
+
+        
+        return redirect()->route('info.index');
     }
 
     /**
@@ -117,6 +155,13 @@ class InformationController extends Controller
     public function destroy($id)
     {
         $news = Info::find($id);
+
+        if(isset($news->attachment))
+        {
+            // deleting old Attachment
+            Storage::delete('public/attach/'.$news->attachment);
+        }
+
         $news->delete();
 
         toastr()->success('News deleted successfully');
