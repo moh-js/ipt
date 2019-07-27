@@ -23,7 +23,7 @@ class LogbookController extends Controller
     public function logbook()
     {
     	$dep = Auth::user()->department;
-    	$logbook = Logbook::all()->where('department', $dep)->where('marked', 0);
+    	$logbook = Logbook::all()->where('department', $dep)->where('marked', '0');
 
     	return view('marker.logbook', ['logbook' => $logbook]);
     }
@@ -86,24 +86,21 @@ class LogbookController extends Controller
     // Store logbook and report marks in the database
     public function store(Request $request, $id)
     {
-    	$this->validate($request, ['marks' => 'integer|lte:60']);
+    	$this->validate($request, ['marks' => 'integer|max:100']);
 
-    	$result 					= new Result;
+    	$result 					= Result::where('user_id', $id)->first();
     	$result->logbook_marks 		= $request->marks;
-    	$result->uni_super_marks	= 0;
-    	$result->indu_super_marks 	= 0;
-    	$result->supervisor 		= 'George Kitula';
-    	$result->total     			= 0;
+    	$result->supervisor 		= title_case(Auth::user()->name);
+    	$result->total     			= round(($result->total + $request->marks)/3);
     	$result->marker 			= Auth::user()->name;
-    	$result->user_id 			= $id;
 
-    	$result->save();
+    	$result->update();
 
     	$name = Logbook::all()->where('user_id', $id)->first();
     	$name->marked = 1;
     	$name->update();
 
-    	return redirect()->route('industrial.mark', $id);
+    	return redirect()->route('logbook.show');
     	
     }
 }

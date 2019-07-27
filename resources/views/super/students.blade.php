@@ -35,12 +35,12 @@
 	    	@foreach($students as $student)
 		    <tr>
 		      <td>{{ $count++ }}</td>
-		      <td>{{ $student->students->userId }}</td>
-		      <td>{{ $student->student_arrival->industry_name }}</td>
-		      <td>{{ $student->student_arrival->region }}</td>
+		      <td>{{ $student->students->user->userId }}</td>
+		      <td>{{ $student->students->industry_name }}</td>
+		      <td>{{ $student->students->region }}</td>
 
 		      <td class="text-center">
-			      <a href="#"class="btn btn-sm btn-success{{--  @if(!$l) disabled @endif --}}"><i class="pr-2 fas fa-check"></i></a>	
+			      <a href="{{ route('super.student', $student->students->user->userId) }}"class="btn btn-sm btn-success{{--  @if(!$l) disabled @endif --}}"><i class="pr-2 fas fa-check"></i></a>	
 		      </td>
 		    </tr>
 		    @endforeach

@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
 
     	DB::table('users')->delete();
 
-        DB::table('users')->insert([
+        $user = User::create([
             'name' => 'Mohamed Said',
             'email' => 'admin@gmail.com',
             'img' => 'user.png',
@@ -26,7 +26,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
         ]);
 
-        $user = User::all()->first();
         
         $user->assignRole('admin');
 

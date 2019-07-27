@@ -11,6 +11,8 @@ use App\Info;
 use App\Location;
 use App\Arrival;
 use App\Logbook;
+use App\Result;
+use App\SuperHasStudent;
 use App\User;
 
 
@@ -46,7 +48,39 @@ class HomeController extends Controller
         $logbook        = Logbook::all()->count();
         $dep_logbook    = Logbook::all()->where('department', $dep)->count();
         $logbook_marked = Logbook::all()->where('department', $dep)->where('marked', 1)->count();
-        $locations       = Location::all();
+        $locations      = Location::all();
+
+        
+        $students  = SuperHasStudent::all()->where('super_id', Auth::id());
+        $supervise = Result::all();
+
+        if (Auth::user()->hasRole('marker')) {
+            
+            foreach ($supervise as $super) {
+                if ($super->user->department == $dep) {
+                    $supervised[] = $super;
+                }
+            }
+            if (!isset($supervised)) {
+                $supervised = array();
+            }
+        }
+
+        if (Auth::user()->hasRole('supervisor')) {
+            
+            foreach ($students as $key => $student) {
+
+                foreach ($supervise as $key => $super) {
+                    if ($student->students->user->id == $super->user_id) {
+                        $supervised[] = $student;
+                    }
+                }
+            }
+        }
+
+        if (!isset($supervised)) {
+            $supervised = array();
+        }
 
         // cheking if the user is student
         $check = Auth::user()->hasRole('student');
@@ -108,7 +142,9 @@ class HomeController extends Controller
             'vac'           => $vac,
             'percentage'    => $percentage,
             'adminIndustry' => $adminIndustry,
+            'supervised'    => $supervised,
             'arrival'       => $arrival,
+            'students'      => $students,
             'logbook'       => $logbook,
             'users'         => $users,
             'logbook_mark'  => $logbook_marked,

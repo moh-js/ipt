@@ -11,7 +11,7 @@ class SuperHasStudent extends Model
     	return $this->belongsTo('App\User', 'super_id', 'id');
     }
 
-    public function student()
+    public function students()
     {
     	return $this->belongsTo('App\Arrival', 'student_id', 'id');
     }

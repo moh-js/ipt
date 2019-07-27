@@ -50,8 +50,8 @@ class LocationController extends Controller
 
     public function getDistrict($id)
     {
-        $district =  Geo::level(Geo::LEVEL_2)->where('parent_id',$id)->get();
-        return $district;
+            $district =  Geo::level(Geo::LEVEL_2)->where('parent_id',$id)->get();
+            return $district;
     }
 
     /**
@@ -89,7 +89,6 @@ class LocationController extends Controller
 
         return redirect()->route('location.index');
     }
-
     /**
      * Display the specified resource.
      *

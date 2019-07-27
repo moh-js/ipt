@@ -6,6 +6,7 @@ use App\Exports\ResultsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
 use App\Result;
 
 class PerformanceController extends Controller
@@ -17,17 +18,23 @@ class PerformanceController extends Controller
 
 	public function listStudent()
 	{
-		$result = Result::all();
+		$getData = Result::all();
+
+		foreach ($getData as $key => $data) {
+			if ($data->user->department == Auth::user()->department) {
+				$result[] = $data;
+			}
+		}
 		return view('marker.performance', ['result' => $result]);
 	}
 
 	public function excel() 
 	{
-	    return Excel::download(new ResultsExport, 'result.xlsx');
+	    return Excel::download(new ResultsExport, Auth::user()->department.'_result.xlsx');
 	}
 
 	public function pdf() 
 	{
-	    // return Excel::download(new ResultsExport, 'invoices.xlsx', \Maatwebsite\Excel\Excel::DOMPDF);
+	    return Excel::download(new ResultsExport, Auth::user()->department.'_result.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
 	}
 }

@@ -21,6 +21,8 @@ class CreateResultsTable extends Migration
             $table->integer('logbook_marks');
             $table->string('supervisor');
             $table->string('marker');
+            $table->string('indu_file');
+            $table->string('uni_file');
             $table->integer('total');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

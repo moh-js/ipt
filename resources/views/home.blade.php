@@ -201,7 +201,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{ count($students) }}</h3>
 
             <p>Students</p>
           </div>
@@ -217,7 +217,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{ count($supervised) }}</h3>
 
             <p>Supervised</p>
           </div>
@@ -264,7 +264,7 @@
     <!-- /.row -->
 
 
-    <div class="card card-outline card-primary  col-md-12">
+    <div class="card card-outline card-primary  col-md-11">
       <div class="card-header">Activities</div>
       <div class="card-body">
         <ol>
@@ -308,7 +308,7 @@
             <p>Marked</p>
           </div>
           <div class="icon">
-            <i class="fas fa-cloud-upload-alt"></i>
+            <i class="fas fa-user-check"></i>
           </div>
           <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -324,7 +324,7 @@
             <p>Submission</p>
           </div>
           <div class="icon">
-            <i class="fas fa-user-check"></i>
+            <i class="fas fa-cloud-upload-alt"></i>
           </div>
           <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
@@ -335,9 +335,9 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>0</h3>
+            <h3>{{ count($supervised) }}</h3>
 
-            <p>Arrival</p>
+            <p>Supervised</p>
           </div>
           <div class="icon">
             <i class="fas fa-map-marked-alt"></i>
@@ -348,6 +348,17 @@
       <!-- ./col -->
     </div>
     <!-- /.row -->
+
+    <div class="card card-outline card-primary  col-md-11">
+      <div class="card-header">Activities</div>
+      <div class="card-body">
+        <ol>
+          <li>Marks Logbooks and reports</li>
+          <li>Export Marks</li>
+        </ol>
+      </div>
+    </div>
+
     @endrole
     {{-- End marker section --}}
 

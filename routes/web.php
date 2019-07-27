@@ -123,3 +123,6 @@ Route::get('dashboar/supervisor/add/{id}', 'Super\SuperviseController@uniSuper')
 
 // Assigned Student List
 Route::get('dashboard/supervise/student_list', 'Super\SuperviseController@studentList')->name('super.student_list');
+Route::get('dashboard/supervise/{id}/student', 'Super\SuperviseController@viewPage')->name('super.student');
+
+Route::post('dashboard/supervise/{id}/student/store', 'Super\SuperviseController@mark')->name('super.mark');
